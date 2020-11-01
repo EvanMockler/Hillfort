@@ -15,6 +15,7 @@ import org.wit.hillfort.models.HillfortModel
 class HillfortActivity : AppCompatActivity(), AnkoLogger {
 
     var hillfort = HillfortModel()
+    var edit = false
     lateinit var app : MainApp
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,22 +28,28 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
         app = application as MainApp
 
         if (intent.hasExtra("hillfort_edit")) {
+            edit = true
             hillfort = intent.extras?.getParcelable<HillfortModel>("hillfort_edit")!!
             hillfortTitle.setText(hillfort.title)
             description.setText(hillfort.description)
+            btnAdd.setText(R.string.save_hillfort)
         }
 
         btnAdd.setOnClickListener() {
             hillfort.title = hillfortTitle.text.toString()
             hillfort.description = description.text.toString()
-            if (hillfort.title.isNotEmpty()) {
-                app.hillforts.create(hillfort.copy())
-                info("add Button Pressed: ${hillfort}")
-                setResult(AppCompatActivity.RESULT_OK)
-                finish()
+            if (hillfort.title.isEmpty()) {
+                toast(R.string.enter_hillfort_title)
             } else {
-                toast("Please Enter a title")
+                if (edit) {
+                    app.hillforts.update(hillfort.copy())
+                } else {
+                    app.hillforts.create(hillfort.copy())
+                }
             }
+            info("add Button Pressed: $hillfortTitle")
+            setResult(AppCompatActivity.RESULT_OK)
+            finish()
         }
     }
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

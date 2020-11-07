@@ -94,9 +94,14 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
             R.id.item_cancel -> {
                 finish()
             }
+            R.id.item_delete ->{
+                app.hillforts.delete(hillfort)
+                finish()
+            }
         }
         return super.onOptionsItemSelected(item)
     }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

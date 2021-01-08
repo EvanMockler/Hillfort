@@ -11,6 +11,7 @@ import org.jetbrains.anko.toast
 import org.wit.hillfort.R
 import org.wit.hillfort.helpers.readImageFromPath
 import org.wit.hillfort.models.HillfortModel
+import org.wit.hillfort.models.Location
 import org.wit.hillfort.views.BaseView
 
 class HillfortView : BaseView(), AnkoLogger {
@@ -46,14 +47,19 @@ class HillfortView : BaseView(), AnkoLogger {
     }
 
     override fun showHillfort(hillfort: HillfortModel) {
-        hillfortTitle.setText(hillfort.title)
-        description.setText(hillfort.description)
+        if (hillfortTitle.text.isEmpty()) hillfortTitle.setText(hillfort.title)
+        if (description.text.isEmpty())  description.setText(hillfort.description)
         hillfortImage.setImageBitmap(readImageFromPath(this, hillfort.image))
+
         if (hillfort.image != null) {
             chooseImage.setText(R.string.change_hillfort_image)
         }
-        lat.setText("%.6f".format(hillfort.lat))
-        lng.setText("%.6f".format(hillfort.lng))
+        this.showLocation(hillfort.location)
+    }
+
+    override fun showLocation (loc : Location) {
+        lat.setText("%.6f".format(loc.lat))
+        lng.setText("%.6f".format(loc.lng))
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

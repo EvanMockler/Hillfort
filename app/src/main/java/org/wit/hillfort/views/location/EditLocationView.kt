@@ -7,6 +7,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.Marker
 import kotlinx.android.synthetic.main.activity_map.*
 import org.wit.hillfort.R
+import org.wit.hillfort.models.Location
 import org.wit.hillfort.views.BaseView
 
 
@@ -41,6 +42,11 @@ class EditLocationView : BaseView(), GoogleMap.OnMarkerDragListener, GoogleMap.O
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun showLocation(location: Location) {
+        lat.setText("%.6f".format(location.lat))
+        lng.setText("%.6f".format(location.lng))
     }
 
     override fun onMarkerDragStart(marker: Marker) {}

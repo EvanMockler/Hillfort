@@ -3,16 +3,13 @@ package org.wit.hillfort.activities
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.os.Looper
 import android.view.Window
-import android.view.WindowInsets
-import android.view.WindowInsetsController
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import org.wit.hillfort.R
-import org.wit.hillfort.main.MainApp
+import org.wit.hillfort.views.hillfortlist.HillfortListView
 
 class SplashActivity : AppCompatActivity() , AnkoLogger {
 
@@ -24,7 +21,7 @@ class SplashActivity : AppCompatActivity() , AnkoLogger {
 
 
         Handler().postDelayed({
-                startActivity(Intent(this, HillfortListActivity::class.java))
+                startActivity(Intent(this, HillfortListView::class.java))
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
                 finish()
         }, 3000)

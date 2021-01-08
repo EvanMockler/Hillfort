@@ -33,6 +33,11 @@ class HillfortJSONStore : HillfortStore, AnkoLogger {
         return hillforts
     }
 
+    override fun findById(id:Long) : HillfortModel? {
+        val foundHillfort: HillfortModel? = hillforts.find { it.id == id }
+        return foundHillfort
+    }
+
     override fun create(hillfort: HillfortModel) {
         hillfort.id = generateRandomId()
         hillforts.add(hillfort)
@@ -53,10 +58,13 @@ class HillfortJSONStore : HillfortStore, AnkoLogger {
         }
     }
 
+
     override fun delete(hillfort: HillfortModel) {
-        hillforts.remove(hillfort)
+        val foundHillfort: HillfortModel? = hillforts.find { it.id == hillfort.id }
+        hillforts.remove(foundHillfort)
         serialize()
     }
+
 
     private fun serialize() {
         val jsonString = gsonBuilder.toJson(hillforts, listType)

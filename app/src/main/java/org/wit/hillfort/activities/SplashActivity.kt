@@ -10,6 +10,7 @@ import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import org.wit.hillfort.R
 import org.wit.hillfort.views.hillfortlist.HillfortListView
+import org.wit.hillfort.views.login.LoginView
 
 class SplashActivity : AppCompatActivity() , AnkoLogger {
 
@@ -21,7 +22,7 @@ class SplashActivity : AppCompatActivity() , AnkoLogger {
 
 
         Handler().postDelayed({
-                startActivity(Intent(this, HillfortListView::class.java))
+                startActivity(Intent(this, LoginView::class.java))
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
                 finish()
         }, 3000)

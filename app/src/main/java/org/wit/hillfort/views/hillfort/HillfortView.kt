@@ -37,13 +37,8 @@ class HillfortView : BaseView(), AnkoLogger {
         presenter = initPresenter (HillfortPresenter(this)) as HillfortPresenter
 
         chooseImage.setOnClickListener {
-            presenter.cacheHillfort(hillfortTitle.text.toString(), description.text.toString())
+            presenter.cacheHillfort(hillfortTitle.text.toString(), description.text.toString(), ratingBar.rating)
             presenter.doSelectImage()
-        }
-
-        hillfortLocation.setOnClickListener {
-            presenter.cacheHillfort(hillfortTitle.text.toString(), description.text.toString())
-            presenter.doSetLocation()
         }
     }
 
@@ -51,6 +46,7 @@ class HillfortView : BaseView(), AnkoLogger {
         if (hillfortTitle.text.isEmpty()) hillfortTitle.setText(hillfort.title)
         if (description.text.isEmpty())  description.setText(hillfort.description)
         Glide.with(this).load(hillfort.image).into(hillfortImage);
+        ratingBar.setRating(hillfort.rating)
 
         if (hillfort.image != null) {
             chooseImage.setText(R.string.change_hillfort_image)
@@ -78,7 +74,7 @@ class HillfortView : BaseView(), AnkoLogger {
                 if (hillfortTitle.text.toString().isEmpty()) {
                     toast(R.string.enter_hillfort_title)
                 } else {
-                    presenter.doAddOrSave(hillfortTitle.text.toString(), description.text.toString())
+                    presenter.doAddOrSave(hillfortTitle.text.toString(), description.text.toString(),ratingBar.rating)
                 }
             }
             R.id.item_cancel -> {
